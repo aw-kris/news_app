@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">News App</string>
+
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+
+    <string name="exit_confirmation_msg">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="search_title">Search</string>
+    <string name="search_hint">Enter keyword...</string>
+
+    <string name="not_found">No article found.</string>
+</resources>
