@@ -1,7 +1,9 @@
 package test.tokopedia.newsapp;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 
+import test.tokopedia.newsapp.data.AppDatabase;
 import test.tokopedia.newsapp.di.component.AppComponent;
 import test.tokopedia.newsapp.di.component.DaggerAppComponent;
 import test.tokopedia.newsapp.di.module.AppModule;
@@ -23,6 +25,8 @@ public class NewsApp extends Application{
     public void onCreate(){
         super.onCreate();
         instance = this;
+//        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+//                AppDatabase.class, "news-db").build();
     }
 
     protected AppComponent createAppComponent() {

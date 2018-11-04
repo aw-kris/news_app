@@ -8,6 +8,8 @@ def RetrofitVersion = '2.4.0'
 def OkhttpVersion = '3.11.0'
 def ButterknifeVersion = '8.8.1'
 def GreenDAOVersion = '3.2.2'
+def ArchComponentVersion = '1.1.1'
+def PagingVersion = '1.0.0'
 
 android {
     compileSdkVersion 28
@@ -68,6 +70,21 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$ButterknifeVersion"
 
     implementation "org.greenrobot:greendao:$GreenDAOVersion"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:$ArchComponentVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$ArchComponentVersion"
+
+    // optional - RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:$ArchComponentVersion"
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$ArchComponentVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$ArchComponentVersion"
+
+    // Paging
+//    implementation "android.arch.paging:runtime:$PagingVersion"
+//    implementation "android.arch.paging:rxjava2:$PagingVersion"
 
     implementation "com.squareup.picasso:picasso:2.71828"
 

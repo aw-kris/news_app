@@ -12,4 +12,7 @@
     <string name="search_hint">Enter keyword...</string>
 
     <string name="not_found">No article found.</string>
+
+    <string name="loading_text">Loading...</string>
+    <string name="img_placeholder">Article Image</string>
 </resources>

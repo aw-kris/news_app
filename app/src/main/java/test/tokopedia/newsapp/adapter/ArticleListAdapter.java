@@ -24,15 +24,26 @@ import test.tokopedia.newsapp.ui.WebviewActivity.WebViewActivity;
  * Created by Kharisma AW on 8/15/2018.
  */
 public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ViewHolder> {
+    public interface OnItemClickListener {
+        void onItemClick(ArticleData item);
+    }
+
     private List<ArticleData> mArticleDataList;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private OnItemClickListener mListener;
 
     public ArticleListAdapter(List<ArticleData> mArticleDataList, Context mContext) {
         this.mArticleDataList = mArticleDataList;
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
-        notifyDataSetChanged();
+    }
+
+    public ArticleListAdapter(List<ArticleData> mArticleDataList, Context mContext, OnItemClickListener mListener) {
+        this.mArticleDataList = mArticleDataList;
+        this.mContext = mContext;
+        this.mLayoutInflater = LayoutInflater.from(mContext);
+        this.mListener = mListener;
     }
 
     @NonNull
@@ -44,23 +55,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ArticleListAdapter.ViewHolder viewHolder, int i) {
-        final ArticleData articleData = mArticleDataList.get(i);
-
-//        int[] androidColors = mContext.getResources().getIntArray(R.array.colorArray);
-//        int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
-
-        Picasso.get().load(articleData.getUrlToImage()).into(viewHolder.article_img);
-        viewHolder.article_title.setText(articleData.getTitle());
-        viewHolder.article_source.setText(articleData.getSource().getName());
-        viewHolder.article_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(mContext, WebViewActivity.class);
-                i.putExtra("url", articleData.getUrl().replace("https", "http"));
-//                i.putExtra("url", "http://www.google.com");
-                mContext.startActivity(i);
-            }
-        });
+        viewHolder.bind(mArticleDataList.get(i));
     }
 
     @Override
@@ -78,6 +73,30 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
             article_img = itemView.findViewById(R.id.article_img);
             article_title = itemView.findViewById(R.id.article_title);
             article_source = itemView.findViewById(R.id.article_source);
+        }
+        public void bind(final ArticleData item, final OnItemClickListener listener) {
+            Picasso.get().load(item.getUrlToImage()).into(article_img);
+            article_title.setText(item.getTitle());
+            article_source.setText(item.getSource().getName());
+            article_container.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
+
+        public void bind(final ArticleData item) {
+            Picasso.get().load(item.getUrlToImage()).into(article_img);
+            article_title.setText(item.getTitle());
+            article_source.setText(item.getSource().getName());
+            article_container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(mContext, WebViewActivity.class);
+                    i.putExtra("url", item.getUrl().replace("https", "http"));
+                    mContext.startActivity(i);
+                }
+            });
         }
     }
 }
